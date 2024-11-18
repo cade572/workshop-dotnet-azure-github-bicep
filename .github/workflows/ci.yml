@@ -1,46 +1,45 @@
 name: CI/CD - Deploy App and Bicep
 
-   on:
-     push:
-       branches: [main]
-     workflow_dispatch:
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
-   permissions:
-     id-token: write
-     pull-requests: write
-     contents: read
+permissions:
+  id-token: write
+  pull-requests: write
+  contents: read
 
-   jobs:
-     build_and_test:
-       runs-on: ubuntu-latest
-       name: Build, Test, Upload Artifact
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    name: Build, Test, Upload Artifact
 
-       steps:
-         - name: Checkout repo
-           uses: actions/checkout@v4
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: Setup dotnet
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 9.0.x
 
-         - name: Run dotnet test
-           run: |
-             dotnet test -c Release
+      - name: Run dotnet test
+        run: |
+          dotnet test -c Release
 
-         - name: Run dotnet publish
-           run: |
-             dotnet publish ./src/WorkshopDemo/WorkshopDemo.csproj -c Release -o ./publish
+      - name: Run dotnet publish
+        run: |
+          dotnet publish ./src/WorkshopDemo/WorkshopDemo.csproj -c Release -o ./publish
 
-         - name: Update version file with GHA run number and git short SHA
-           run: echo $(date +'%Y%m%d.%H%M').${{github.run_number}}-$(git rev-parse --short HEAD) > publish/version.txt
+      - name: Update version file with GHA run number and git short SHA
+        run: echo $(date +'%Y%m%d.%H%M').${{github.run_number}}-$(git rev-parse --short HEAD) > publish/version.txt
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: dotnet-artifact
           path: publish/
-
   dev:
     needs: build_and_test
     uses: ./.github/workflows/step-deploy.yml
