@@ -69,4 +69,7 @@ resource appServiceSlotSetting 'Microsoft.Web/sites/slots/config@2022-09-01' = {
     ASPNETCORE_ENVIRONMENT: environment
   }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 778aea178eac5b2f7f85777573e065d2fb365e71
