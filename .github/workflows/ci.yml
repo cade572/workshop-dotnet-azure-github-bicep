@@ -47,7 +47,7 @@ jobs:
       env: dev
       artifact_name: dotnet-artifact
       resource_group_name: rg-workshop-dnazghbicep-cade572-dev
-      app_service_name: app-workshop-dnazghbicep-cade572-dev
+      app_service_name: asp-workshop-dnazghbicep-cade572-dev
       app_service_slot_name: slot
     # Note: use GH Environment Secrets if using a Pro/Enterprise version of GH
     secrets:
@@ -62,7 +62,7 @@ jobs:
       env: prod
       artifact_name: dotnet-artifact
       resource_group_name: rg-workshop-dnazghbicep-cade572-prod
-      app_service_name: app-workshop-dnazghbicep-cade572-prod
+      app_service_name: asp-workshop-dnazghbicep-cade572-prod
       app_service_slot_name: slot
     # Note: use GH Environment Secrets if using a Pro/Enterprise version of GH
     secrets:
